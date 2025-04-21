@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 
 export default function MinistryPortal() {
@@ -15,8 +16,6 @@ export default function MinistryPortal() {
 
   useEffect(() => {
     if (!selectedMinistry || !selectedAgency) return;
-
-    // JSON 경로 구성
     const url = `/data/msit/${selectedAgency.toLowerCase()}.json`;
 
     fetch(url)
@@ -35,7 +34,6 @@ export default function MinistryPortal() {
     <div style={{ padding: "2rem" }}>
       <h1 style={{ fontSize: "2rem", fontWeight: "bold" }}>5대 부처 공고 통합 포털</h1>
 
-      {/* 부처 탭 */}
       <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem" }}>
         {Object.keys(ministries).map((ministry) => (
           <button
@@ -58,7 +56,6 @@ export default function MinistryPortal() {
         ))}
       </div>
 
-      {/* 산하기관 탭 */}
       {ministries[selectedMinistry] && ministries[selectedMinistry].length > 0 && (
         <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem" }}>
           {ministries[selectedMinistry].map((agency) => (
@@ -78,7 +75,6 @@ export default function MinistryPortal() {
         </div>
       )}
 
-      {/* 공고 카드 출력 */}
       <div
         style={{
           display: "grid",
@@ -98,4 +94,19 @@ export default function MinistryPortal() {
             }}
           >
             <h2 style={{ fontSize: "1.1rem", marginBottom: "0.5rem" }}>{notice.title}</h2>
-            <p style={{ color: "#666", marginBottom
+            <p style={{ color: "#666", marginBottom: "0.3rem" }}>{notice.agency}</p>
+            <p style={{ fontSize: "0.9rem", marginBottom: "0.5rem" }}>날짜: {notice.date}</p>
+            <a
+              href={notice.link}
+              target="_blank"
+              rel="noreferrer"
+              style={{ color: "blue", textDecoration: "underline" }}
+            >
+              자세히 보기
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
